@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.2.18",
     "apexcharts": "^3.45.1",
     "react": "^18.2.0",
+    "react-apexcharts": "^1.4.1",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.4",
     "react-number-format": "^5.3.1",

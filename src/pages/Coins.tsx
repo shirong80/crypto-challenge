@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchCoins } from "../services/api";
+import { fetchCoins } from "../core/services/api";
 import { Helmet } from "react-helmet-async";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
