@@ -17,7 +17,9 @@ export default function Chart() {
   const [chartData, setChartData] = useState<IChartData[]>([]);
   const isDark = useRecoilValue(isDarkAtom);
 
-  const { isLoading, data, isSuccess } = useQuery<IHistoryInfo[]>({
+  const { isLoading, data, isSuccess, isError, error } = useQuery<
+    IHistoryInfo[]
+  >({
     queryKey: ["coinHistory", coinId],
     queryFn: () => fetchCoinHistory(coinId),
     refetchInterval: 1000 * 60,
@@ -64,6 +66,11 @@ export default function Chart() {
     <div>
       {isLoading ? (
         "Loading chart..."
+      ) : isError ? (
+        <div>
+          <p>Something went wrong...</p>
+          <p>{error?.message}</p>
+        </div>
       ) : (
         <ReactApexChart
           options={chartOptions}
