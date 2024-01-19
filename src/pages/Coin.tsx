@@ -176,7 +176,7 @@ export default function Coin() {
               <Link to={"price"}>Price</Link>
             </Tab>
           </Tabs>
-          {/* <Outlet /> */}
+          <Outlet />
         </>
       )}
     </Container>
