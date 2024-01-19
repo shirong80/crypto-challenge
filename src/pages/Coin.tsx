@@ -12,13 +12,14 @@ import { IDetailInfo, IPriceInfo } from "../core/models/types";
 import { fetchCoinInfo, fetchCoinTickers } from "../core/services/api";
 import { Helmet } from "react-helmet-async";
 import { NumericFormat } from "react-number-format";
+import { useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../core/services/atoms";
 
 interface ILocationState {
   name: string;
 }
 
 export const NavbarLink = styled(Link)`
-  flex-basis: 50%;
   color: ${(props) => props.theme.textColor};
   font-size: 30px;
   text-decoration: none;
@@ -29,7 +30,6 @@ export const NavbarLink = styled(Link)`
   }
 `;
 const Title = styled.h1`
-  flex-basis: 50%;
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
 `;
@@ -45,7 +45,7 @@ const Container = styled.div`
 const Header = styled.header`
   height: 15vh;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -111,6 +111,9 @@ export default function Coin() {
     refetchIntervalInBackground: true,
   });
 
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const toggleDarkMode = () => setDarkAtom((prev) => !prev);
+
   const chartMatch = useMatch("/:coinId/chart");
   const priceMatch = useMatch("/:coinId/price");
 
@@ -128,6 +131,9 @@ export default function Coin() {
         <Title>
           {state?.name ? state.name : isLoading ? "Loading..." : infoData?.name}
         </Title>
+        <div>
+          <button onClick={toggleDarkMode}>Toggle</button>
+        </div>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>

@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { IHistoryInfo } from "../core/models/types";
 import { fetchCoinHistory } from "../core/services/api";
 import ReactApexChart from "react-apexcharts";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "../core/services/atoms";
 
 interface IChartData {
   x: Date;
@@ -13,6 +15,7 @@ interface IChartData {
 export default function Chart() {
   const { coinId } = useParams();
   const [chartData, setChartData] = useState<IChartData[]>([]);
+  const isDark = useRecoilValue(isDarkAtom);
 
   const { isLoading, data, isSuccess } = useQuery<IHistoryInfo[]>({
     queryKey: ["coinHistory", coinId],
@@ -42,7 +45,7 @@ export default function Chart() {
       type: "candlestick",
       height: 350,
     },
-    theme: { mode: "dark" },
+    theme: { mode: isDark ? "dark" : "light" },
     title: {
       text: "CandleStick Chart",
       align: "left",

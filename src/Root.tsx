@@ -1,5 +1,8 @@
 import { Outlet } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
+import { useRecoilValue } from "recoil";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
+import { isDarkAtom } from "./core/services/atoms";
+import { darkTheme, lightTheme } from "./theme";
 
 const GlobalStyle = createGlobalStyle`
   /* fonts import */
@@ -62,10 +65,14 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default function Root() {
+  const isDark = useRecoilValue(isDarkAtom);
+
   return (
-    <div>
-      <GlobalStyle />
-      <Outlet />
-    </div>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+      <div>
+        <GlobalStyle />
+        <Outlet />
+      </div>
+    </ThemeProvider>
   );
 }
