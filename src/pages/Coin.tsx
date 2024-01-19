@@ -17,7 +17,19 @@ interface ILocationState {
   name: string;
 }
 
+export const NavbarLink = styled(Link)`
+  flex-basis: 50%;
+  color: ${(props) => props.theme.textColor};
+  font-size: 30px;
+  text-decoration: none;
+  margin-left: 10px;
+  &:hover,
+  &:focus {
+    color: ${(props) => props.theme.accentColor};
+  }
+`;
 const Title = styled.h1`
+  flex-basis: 50%;
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
 `;
@@ -110,6 +122,7 @@ export default function Coin() {
         </title>
       </Helmet>
       <Header>
+        <NavbarLink to="/">&larr;</NavbarLink>
         <Title>
           {state?.name ? state.name : isLoading ? "Loading..." : infoData?.name}
         </Title>
@@ -163,7 +176,7 @@ export default function Coin() {
               <Link to={"price"}>Price</Link>
             </Tab>
           </Tabs>
-          <Outlet />
+          {/* <Outlet /> */}
         </>
       )}
     </Container>
