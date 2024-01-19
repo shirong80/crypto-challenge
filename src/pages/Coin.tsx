@@ -122,7 +122,9 @@ export default function Coin() {
         </title>
       </Helmet>
       <Header>
-        <NavbarLink to="/">&larr;</NavbarLink>
+        <NavbarLink to="/" preventScrollReset={true}>
+          &larr;
+        </NavbarLink>
         <Title>
           {state?.name ? state.name : isLoading ? "Loading..." : infoData?.name}
         </Title>
