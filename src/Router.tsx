@@ -5,35 +5,40 @@ import Coin from "./pages/Coin";
 import Chart from "./components/Chart";
 import Price from "./components/Price";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Root />,
+      children: [
+        {
+          path: "",
+          element: <Coins />,
+        },
+        {
+          path: ":coinId",
+          element: <Coin />,
+          children: [
+            {
+              path: "",
+              loader: () => redirect("chart"),
+            },
+            {
+              path: "chart",
+              element: <Chart />,
+            },
+            {
+              path: "price",
+              element: <Price />,
+            },
+          ],
+        },
+      ],
+    },
+  ],
   {
-    path: "/",
-    element: <Root />,
-    children: [
-      {
-        path: "",
-        element: <Coins />,
-      },
-      {
-        path: ":coinId",
-        element: <Coin />,
-        children: [
-          {
-            path: "",
-            loader: () => redirect("chart"),
-          },
-          {
-            path: "chart",
-            element: <Chart />,
-          },
-          {
-            path: "price",
-            element: <Price />,
-          },
-        ],
-      },
-    ],
-  },
-]);
+    basename: process.env.PUBLIC_URL,
+  }
+);
 
 export default router;
